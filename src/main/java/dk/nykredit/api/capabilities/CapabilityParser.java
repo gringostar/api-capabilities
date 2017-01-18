@@ -18,12 +18,12 @@ public class CapabilityParser<C> {
     private final Function<String, Optional<C>> factory;
     private final BiPredicate<C, C> duplicate;
     
-    public CapabilityParser(String regex, Function<String, Optional<C>> factory) {
+    public CapabilityParser(Pattern regex, Function<String, Optional<C>> factory) {
         this(regex, factory, (c1, c2) -> false);
     }
     
-    public CapabilityParser(String regex, Function<String, Optional<C>> factory, BiPredicate<C, C> duplicate) {
-        this.pattern = Pattern.compile(regex);
+    public CapabilityParser(java.util.regex.Pattern regex, Function<String, Optional<C>> factory, BiPredicate<C, C> duplicate) {
+        this.pattern = regex;
         this.factory = factory;
         this.duplicate = duplicate;
     }

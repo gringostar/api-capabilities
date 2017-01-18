@@ -2,6 +2,7 @@ package dk.nykredit.api.capabilities;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * A composition signals that a consumer of a given API resource
@@ -39,7 +40,7 @@ import java.util.Optional;
  */
 public class Composition {
 
-    private static final String REGEX = "^(([a-zA-Z_0-9]+)?::([a-zA-Z_0-9]+))?((\\|[a-zA-Z_0-9]+)?::([a-zA-Z_0-9]+))*";
+    private static final Pattern REGEX = Pattern.compile("^(([a-zA-Z_0-9]+)?::([a-zA-Z_0-9]+))?((\\|[a-zA-Z_0-9]+)?::([a-zA-Z_0-9]+))*");
     private static final CapabilityParser<Composition> PARSER = new CapabilityParser<>(REGEX, Composition::parseToken);
     
     private final String concept;

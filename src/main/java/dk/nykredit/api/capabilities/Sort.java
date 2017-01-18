@@ -2,6 +2,7 @@ package dk.nykredit.api.capabilities;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * Signals a sorting order by attributes.
@@ -33,7 +34,8 @@ import java.util.Optional;
  * necessary translations or mappings between the exposure and representations from and to the model.
  */
 public class Sort {
-    private static final String REGEX = "^([a-zA-Z]+[a-zA-Z_0-9]*(::-|::\\+|:: )?)(\\|[a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+)?)*";
+    private static final Pattern REGEX =
+        Pattern.compile("^([a-zA-Z]+[a-zA-Z_0-9]*(::-|::\\+|:: )?)(\\|[a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+)?)*");
     private static final CapabilityParser<Sort> PARSER = new CapabilityParser<>(REGEX, Sort::parseToken, Sort::duplicate);
 
     private String attribute = "";

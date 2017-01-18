@@ -3,6 +3,7 @@ package dk.nykredit.api.capabilities;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * Selection on the basis of attribute values.
@@ -24,7 +25,8 @@ import java.util.Optional;
  * key for an account which is the number of that account.
  */
 public class Select {
-    private static final String REGEX = "^(([a-z][a-zA-Z_0-9]*)::([a-zA-Z_0-9]+)(-|\\+)?)?((\\|[a-z][a-zA-Z_0-9]*)?::([a-zA-Z_0-9]+)(-|\\+)?)*";
+    private static final Pattern REGEX =
+        Pattern.compile("^(([a-z][a-zA-Z_0-9]*)::([a-zA-Z_0-9]+)(-|\\+)?)?((\\|[a-z][a-zA-Z_0-9]*)?::([a-zA-Z_0-9]+)(-|\\+)?)*");
     private static final CapabilityParser<Select> PARSER = new CapabilityParser<>(REGEX, Select::parseToken);
 
     private String attribute = "";

@@ -2,6 +2,7 @@ package dk.nykredit.api.capabilities;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * Filter signals a dynamic projection needed from a consumer perspective.
@@ -46,7 +47,8 @@ import java.util.Optional;
  *
  */
 public class Filter {
-    private static final String REGEX = "^([a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+|:: |::)?)(\\|[a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+|:: |::)?)*";
+    private static final Pattern REGEX =
+        Pattern.compile("^([a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+|:: |::)?)(\\|[a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+|:: |::)?)*");
     private static final CapabilityParser<Filter> PARSER = new CapabilityParser<>(REGEX, Filter::parseToken, Filter::duplicate);
 
     private String attribute = "";
