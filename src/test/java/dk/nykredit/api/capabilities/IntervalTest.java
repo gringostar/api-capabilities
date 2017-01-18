@@ -199,9 +199,9 @@ public class IntervalTest {
         interval = Interval.getInterval("from::-14d|to::now");
         assertEquals(zdnow.getYear(), interval.get().getEnd().getYear());
         assertEquals(zdnow.getMonth(), interval.get().getEnd().getMonth());
-        assertEquals(zdnow.getDayOfMonth(), interval.get().getEnd().getDayOfMonth()); //may be troublesome when run over midnight
-        assertTrue(zdnow.isEqual(interval.get().getEnd()));
-        assertTrue(zdnow.minusDays(14).isEqual(interval.get().getStart()));
+        assertEquals(zdnow.getDayOfMonth(), interval.get().getEnd().getDayOfMonth());
+        assertTrue(zdnow.toEpochSecond() - interval.get().getEnd().toEpochSecond() < 1000);
+        assertTrue(zdnow.minusDays(14).toEpochSecond() - interval.get().getStart().toEpochSecond() < 1000);
     }
 
 }
@@ -215,5 +215,7 @@ class VirtualCurrentTime extends CurrentTime {
     static void stop() {
         CurrentTime.reset();
     }
+
+
 
 }
