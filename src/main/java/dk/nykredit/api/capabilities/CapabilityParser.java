@@ -37,7 +37,7 @@ public class CapabilityParser<C> {
             return Collections.emptyList();
         }
         
-        String sanitized = Sanitizer.sanitize(capability, true, true);
+        String sanitized = Sanitizer.sanitize(capability, true);
         List<String> tokens = Arrays.asList(sanitized.split("\\|"));
         return tokens.stream()
                 .map(factory::apply)

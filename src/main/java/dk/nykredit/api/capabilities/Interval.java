@@ -88,7 +88,7 @@ public class Interval {
         if (!interval.matches("^(from::|at::)?(-|\\+)?(\\d+d?|now|yesterday|tomorrow)?(\\|)?(to::)?(-|\\+)?(\\d+d?|now|yesterday|tomorrow)?")) {
             return Optional.empty();
         }
-        String result = Sanitizer.sanitize(interval, true, true);
+        String result = Sanitizer.sanitize(interval, true);
         StringTokenizer timePoints = new StringTokenizer(result, "|", false);
         int pit = timePoints.countTokens();
         if (invalidIntervalInput(pit)) {

@@ -58,7 +58,7 @@ public class Element {
         if (!element.matches("^([0-9]+)?(\\|[0-9]+)?")) {
             return Optional.empty();
         }
-        String result = Sanitizer.sanitize(element, false, true);
+        String result = Sanitizer.sanitize(element, false);
         int pipe = result.indexOf('|');
         if (pipe > 0) {
             try {

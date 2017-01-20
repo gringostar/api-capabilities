@@ -100,7 +100,7 @@ public class Filter {
     }
 
     private static String validValue(String filter) {
-        return Sanitizer.sanitize(filter, true, true);
+        return Sanitizer.sanitize(filter, true);
     }
 
     private static String getAttributeFrom(String filter) {
