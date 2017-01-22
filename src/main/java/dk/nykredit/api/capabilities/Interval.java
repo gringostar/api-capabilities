@@ -75,8 +75,9 @@ public class Interval {
      *
      * The interval is constructed from a syntax like:
      *
-     * {@literal(interval="<from/at/::+/-/#d/#/nowAsZonedDateTime/yesterday/tomorrow>|<to/::+/-/#d/#/nowAsZonedDateTime/yesterday/tomorrow>")}
-     * the regexp is: <code>"^(from::|at::)?(-|\\+)?(\\d+d?|nowAsZonedDateTime|yesterday|tomorrow)?(\\|)?(to::)?(-|\\+)?(\\d+d?|nowAsZonedDateTime|yesterday|tomorrow)?"</code>
+     * {@literal(interval="<from/at/::+/-/#d/#/now/yesterday/tomorrow>|<to/::+/-/#d/#/now/yesterday/tomorrow>")}
+     * the regexp is:
+     * <code>"^(from::|at::)?(-|\\+)?(\\d+d?|now|yesterday|tomorrow)?(\\|)?(to::)?(-|\\+)?(\\d+d?|now|yesterday|tomorrow)?"</code>
      *
      * @param interval containing a time or a starting and an ending point in time according to the regexp above
      * @return an Interval with a start and an end, is the values are nor valid a NILL instance is returned
