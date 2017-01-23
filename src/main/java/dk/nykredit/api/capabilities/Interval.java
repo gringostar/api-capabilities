@@ -30,7 +30,7 @@ import dk.nykredit.time.CurrentTime;
  * </pre>
  * The latter three return the transactions from a specific account
  * within the last day assuming now is Friday the 14th of October 2016 UTC
- * </p>
+ * <p>
  * This supports the use of CurrentTime and its virtual time set.
  */
 public class Interval {
