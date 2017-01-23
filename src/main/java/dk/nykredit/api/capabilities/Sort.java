@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 
 /**
  * Signals a sorting order by attributes.
- *
+ * <p>
  * Implementation of the sorting API capability which follows the
- * structure like {@literal(sort="<attribute>::+/-|<attribute>::+/-|...)}.
- * 
- * The default is {@literal(sort="<attribute>|<attribute>|...)} which means default is ascending,
+ * structure like {@literal sort="<attribute>::+/-|<attribute>::+/-|...}.
+ * <p>
+ * The default is {@literal sort="<attribute>|<attribute>|...} which means default is ascending,
  * so <code>sort="balance|lastUpdate"</code> would mean ascending in relation
  * to balance and if equal then according to lastUpdate.
  * <p>
@@ -47,14 +47,14 @@ public class Sort {
     }
 
     /**
-     * the attribute name used in the representation of the object
+     * @return the attribute name used in the representation of the object
      */
     public String getAttribute() {
         return attribute;
     }
 
     /**
-     * the direction (ASCending or DESCending) {@link Direction} of the attribute
+     * @return the direction (ASCending or DESCending) {@link Direction} of the attribute
      * name used in the representation of the object with respect to sorting order in the response
      */
     public Direction getDirection() {

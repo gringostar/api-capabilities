@@ -13,14 +13,10 @@ import java.util.regex.Pattern;
  * like to have a certain assumed related object included as a part of the
  * response if possible.
  * <p>
- * The syntax is: {@literal(embed="<concept>::<projection>|<concept>::<projection>|...")}
+ * The syntax is: {@literal embed="<concept>::<projection>|<concept>::<projection>|..."}
  * <p>
  * Example:
- * <code>
- * https://banking.services.sample-bank.dk/accounts/1234-56789?embed="transaction::list|owner::sparse"
- * </code>
- * <p>
- * <code> embed="transaction::list|owner::sparse"</code>
+ * {@code https://banking.services.sample-bank.dk/accounts/1234-56789?embed="transaction::list|owner::sparse"}
  * <p>
  * which ideally will return a json response including <code>_links</code> and <code>_embeddded</code> objects
  * inside the response containing either a map or array of transactions with links in the

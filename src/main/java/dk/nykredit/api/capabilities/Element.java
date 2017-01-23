@@ -4,23 +4,22 @@ import java.util.Optional;
 
 /**
  * Defines a pagination of responses is obtained by using the Query parameter `elements`.
- *
- * The Query Parameter `elements` signals the initial element and the last element that is desired to be part of the response.
- *
  * <p>
- * The syntax is: {@literal(elements="<startingFrom>|<endingAt>"</code> both inclusive.)}
- * </p>
- *
+ * The Query Parameter `elements` signals the initial element and the last element that is desired to be part of the response.
+ * <p>
+ * The syntax is: {@literal elements="<startingFrom>|<endingAt>"} both inclusive.
+ * <p>
  * Example:
  * <p>
- * https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?elements="10|30"
- * which returns element 10 as the first entry in the json
- * response and element 30 as the last entry in the response.
- * </p>
- * A maximum element size is defined here max size is 500 elements
+ * {@literal https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?elements="10|30"}
+ * <p>
+ * which returns element 10 as the first entry in the json response and element 30 as the last entry in the response.
+ * <p>
+ * A maximum element size is defined here {@link #MAX_ELEMENTS}.
  */
 public class Element {
 
+    /** Maximum number of elements to return */
     public static final int MAX_ELEMENTS = 500;
 
     private final int start;
