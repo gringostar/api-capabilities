@@ -216,6 +216,4 @@ class VirtualCurrentTime extends CurrentTime {
         CurrentTime.reset();
     }
 
-
-
 }
