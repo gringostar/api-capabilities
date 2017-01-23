@@ -22,7 +22,7 @@ public class CapabilityParser<C> {
         this(regex, factory, (c1, c2) -> false);
     }
     
-    public CapabilityParser(java.util.regex.Pattern regex, Function<String, Optional<C>> factory, BiPredicate<C, C> duplicate) {
+    public CapabilityParser(Pattern regex, Function<String, Optional<C>> factory, BiPredicate<C, C> duplicate) {
         this.pattern = regex;
         this.factory = factory;
         this.duplicate = duplicate;
