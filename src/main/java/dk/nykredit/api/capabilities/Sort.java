@@ -2,14 +2,15 @@ package dk.nykredit.api.capabilities;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * Signals a sorting order by attributes.
- *
+ * <p>
  * Implementation of the sorting API capability which follows the
- * structure like {@literal(sort="<attribute>::+/-|<attribute>::+/-|...)}.
- * 
- * The default is {@literal(sort="<attribute>|<attribute>|...)} which means default is ascending,
+ * structure like {@literal sort="<attribute>::+/-|<attribute>::+/-|...}.
+ * <p>
+ * The default is {@literal sort="<attribute>|<attribute>|...} which means default is ascending,
  * so <code>sort="balance|lastUpdate"</code> would mean ascending in relation
  * to balance and if equal then according to lastUpdate.
  * <p>
@@ -33,7 +34,8 @@ import java.util.Optional;
  * necessary translations or mappings between the exposure and representations from and to the model.
  */
 public class Sort {
-    private static final String REGEX = "^([a-zA-Z]+[a-zA-Z_0-9]*(::-|::\\+|:: )?)(\\|[a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+)?)*";
+    private static final Pattern REGEX =
+        Pattern.compile("^([a-zA-Z]+[a-zA-Z_0-9]*(::-|::\\+|:: )?)(\\|[a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+)?)*");
     private static final CapabilityParser<Sort> PARSER = new CapabilityParser<>(REGEX, Sort::parseToken, Sort::duplicate);
 
     private String attribute = "";

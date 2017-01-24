@@ -1,30 +1,28 @@
 package dk.nykredit.api.capabilities;
 
-
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * Selection on the basis of attribute values.
- *
+ * <p>
  * Indicated by using an API Query Parameter called <code>select</code>.
  * <p>
- * The syntax is:
- * {@literal(select="<attribute>::<value>|<atribute>::<value>|...")}
+ * The syntax is: {@literal select="<attribute>::<value>|<atribute>::<value>|..."}
  * <p>
  * Example:
- * <code>
- * https://banking.services.sample-bank.dk/accounts?select="no::123456789+|no::234567890"
- * </code>
- *
+ * <p>
+ * {@code https://banking.services.sample-bank.dk/accounts?select="no::123456789+|no::234567890"}
  * <p>
  * So the <code>select="no::123456789+|no::234567890"</code>
- * will return the to accounts having account numbers "123456789" and "234567890" and
+ * will return the two accounts having account numbers "123456789" and "234567890" and
  * thus it works as a way to select certain objects, in this case based on the semantic
- * key for an account which is the number of that account.
+ * key for an account.
  */
 public class Select {
-    private static final String REGEX = "^(([a-z][a-zA-Z_0-9]*)::([a-zA-Z_0-9]+)(-|\\+)?)?((\\|[a-z][a-zA-Z_0-9]*)?::([a-zA-Z_0-9]+)(-|\\+)?)*";
+    private static final Pattern REGEX =
+        Pattern.compile("^(([a-z][a-zA-Z_0-9]*)::([a-zA-Z_0-9]+)(-|\\+)?)?((\\|[a-z][a-zA-Z_0-9]*)?::([a-zA-Z_0-9]+)(-|\\+)?)*");
     private static final CapabilityParser<Select> PARSER = new CapabilityParser<>(REGEX, Select::parseToken);
 
     private String attribute = "";
@@ -44,15 +42,16 @@ public class Select {
     }
 
     /**
-     * delivers a set of Select back containing a number of attributes from the part that is within
-     * the http:// ..../ some-resource?select="value" that value may contain one or more attributes
+     * Delivers a set of Select back containing a number of attributes from the part that is within
+     * the {@code http:// ..../ some-resource?select="value"} that value may contain one or more attributes
      * which is part of the resource attributes for the endpoint that the request is targeting
      * <p>
-     * the format of the <code>select="value" is "attribute::value|anotherAttribute::thatValue|yetAnotherAttribute::thisValue"</code>
-     * and so on, it may also take the form "attribute::value|attribute::thatValue|attribute::thisValue"
-     *
-     * the regexp is:
-     * <code>"^(([a-z][a-zA-Z_0-9]*)::([a-zA-Z_0-9]+)(-|\\+)?)?((\\|[a-z][a-zA-Z_0-9]*)?::([a-zA-Z_0-9]+)(-|\\+)?)*"</code>
+     * the format of the {@code select="value"} is
+     * {@code "attribute::value|anotherAttribute::thatValue|yetAnotherAttribute::thisValue"}
+     * and so on, it may also take the form {@code "attribute::value|attribute::thatValue|attribute::thisValue"}
+     * <p>
+     * The regexp is:
+     * {@code ^(([a-z][a-zA-Z_0-9]*)::([a-zA-Z_0-9]+)(-|\\+)?)?((\\|[a-z][a-zA-Z_0-9]*)?::([a-zA-Z_0-9]+)(-|\\+)?)*}
      *
      * @param select the select Query Parameter
      * @return a set of attribute(s) and value(s) used for selecting candidates for the response

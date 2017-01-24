@@ -2,6 +2,7 @@ package dk.nykredit.api.capabilities;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * A composition signals that a consumer of a given API resource
@@ -12,14 +13,10 @@ import java.util.Optional;
  * like to have a certain assumed related object included as a part of the
  * response if possible.
  * <p>
- * The syntax is: {@literal(embed="<concept>::<projection>|<concept>::<projection>|...")}
+ * The syntax is: {@literal embed="<concept>::<projection>|<concept>::<projection>|..."}
  * <p>
  * Example:
- * <code>
- * https://banking.services.sample-bank.dk/accounts/1234-56789?embed="transaction::list|owner::sparse"
- * </code>
- * <p>
- * <code> embed="transaction::list|owner::sparse"</code>
+ * {@code https://banking.services.sample-bank.dk/accounts/1234-56789?embed="transaction::list|owner::sparse"}
  * <p>
  * which ideally will return a json response including <code>_links</code> and <code>_embeddded</code> objects
  * inside the response containing either a map or array of transactions with links in the
@@ -39,7 +36,7 @@ import java.util.Optional;
  */
 public class Composition {
 
-    private static final String REGEX = "^(([a-zA-Z_0-9]+)?::([a-zA-Z_0-9]+))?((\\|[a-zA-Z_0-9]+)?::([a-zA-Z_0-9]+))*";
+    private static final Pattern REGEX = Pattern.compile("^(([a-zA-Z_0-9]+)?::([a-zA-Z_0-9]+))?((\\|[a-zA-Z_0-9]+)?::([a-zA-Z_0-9]+))*");
     private static final CapabilityParser<Composition> PARSER = new CapabilityParser<>(REGEX, Composition::parseToken);
     
     private final String concept;

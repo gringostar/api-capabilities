@@ -10,33 +10,27 @@ import dk.nykredit.time.CurrentTime;
 
 /**
  * A time interval with a start and end time.
+ * <p>
  * The interval will always start before it ends. The start is exclusive and the end is inclusive.
  * <p>
  * Temporal aspects are handled using the interval Query Parameter.
- *
- * The syntax is:
- * {@literal(interval="<now/from/to/at/::+/-/#d/#/now>|
- * <now/from/to/at/::+/-/#d/#>")}
- * </p>
- *
+ * <p>
+ * The syntax is: {@literal interval="<now/from/to/at/::+/-/#d/#/now>|<now/from/to/at/::+/-/#d/#>"}
  * <p>
  * Example:
- * <code>https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?interval="from::-14d|to::now"</code>
- * </p>
- * which returns the transactions from a specific account within the last 14 days
- * Another example:
- * <code>
- * https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?interval="from::1476449846|to::now"
- *
- * https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?interval="from::1476449846"
- *
- * https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?interval="at::1476449846"
- * </code>
- *
+ * {@code https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?interval="from::-14d|to::now"}
  * <p>
+ * which returns the transactions from a specific account within the last 14 days
+ * <p>
+ * Another example:
+ * <pre>
+ * https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?interval="from::1476449846|to::now"
+ * https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?interval="from::1476449846"
+ * https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?interval="at::1476449846"
+ * </pre>
  * The latter three return the transactions from a specific account
  * within the last day assuming now is Friday the 14th of October 2016 UTC
- * </p>
+ * <p>
  * This supports the use of CurrentTime and its virtual time set.
  */
 public class Interval {
@@ -89,7 +83,7 @@ public class Interval {
         if (!interval.matches("^(from::|at::)?(-|\\+)?(\\d+d?|now|yesterday|tomorrow)?(\\|)?(to::)?(-|\\+)?(\\d+d?|now|yesterday|tomorrow)?")) {
             return Optional.empty();
         }
-        String result = Sanitizer.sanitize(interval, true, true);
+        String result = Sanitizer.sanitize(interval, true);
         StringTokenizer timePoints = new StringTokenizer(result, "|", false);
         int pit = timePoints.countTokens();
         if (invalidIntervalInput(pit)) {
