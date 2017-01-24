@@ -16,15 +16,19 @@ public class Sanitizer {
      *
      * @param input an input string received from a non-trustworthy source (in reality every source)
      * @param allowSpaces should the string be stripped for spaces or allow these to stay
+     * @param allowNumbers can the input contain numbers or not
      * @return a sanitized string or an empty string if the sanitation failed for some reason.
      */
-    public static String sanitize(String input, boolean allowSpaces) {
+    public static String sanitize(String input, boolean allowSpaces, boolean allowNumbers) {
+        String result = input;
         if (null == input) {
             return "";
         }
-        String result = input;
         if (!allowSpaces) {
             result = result.replaceAll(" ", "");
+        }
+        if (!allowNumbers) {
+            result = result.matches(".*\\d.*") ? "" : result;
         }
         for (String s : SUSPICIOUS_CONTENT) {
             if (result.contains(s)) {
@@ -32,5 +36,16 @@ public class Sanitizer {
             }
         }
         return result;
+    }
+
+    /**
+     * A default version of the santizer used from the local capabilities and thus
+     * @param input an input string received from a non-trustworthy source (in reality every source)
+     * @param allowSpaces should the string be stripped for spaces or allow these to stay
+     * @return a sanitized string or an empty string if the sanitation failed for some reason
+     */
+
+    static String sanitize(String input, boolean allowSpaces) {
+        return sanitize(input, allowSpaces, true);
     }
 }

@@ -3,15 +3,15 @@ package dk.nykredit.api.capabilities;
 import java.util.Optional;
 
 /**
- * Defines a pagination of responses is obtained by using the Query parameter `elements`.
+ * Defines a pagination of responses is obtained by using the Query parameter {@code elements}.
  * <p>
- * The Query Parameter `elements` signals the initial element and the last element that is desired to be part of the response.
+ * The Query Parameter {@code elements} signals the initial element and the last element that is desired to be part of the response.
  * <p>
- * The syntax is: {@literal elements="<startingFrom>|<endingAt>"} both inclusive.
+ * The syntax is: {@code elements="<startingFrom>|<endingAt>"} both inclusive.
  * <p>
  * Example:
  * <p>
- * {@literal https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?elements="10|30"}
+ * {@code https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?elements="10|30"}
  * <p>
  * which returns element 10 as the first entry in the json response and element 30 as the last entry in the response.
  * <p>
@@ -19,7 +19,7 @@ import java.util.Optional;
  */
 public class Element {
 
-    /** Maximum number of elements to return */
+    /** Maximum number of elements to return - currently 500 */
     public static final int MAX_ELEMENTS = 500;
 
     private final int start;
@@ -46,7 +46,7 @@ public class Element {
 
     /**
      * A span of elements.
-     * The syntax supported is given by the regexp: <code>"^([0-9]+)?(\\|[0-9]+)?"</code>
+     * The syntax supported is given by the regexp: {@code "^([0-9]+)?(\\|[0-9]+)?"}
      * @param element a string that follows the syntax given by the regexp above
      * @return an element set with a "include from element (start)" to "last included element (end)"
      */

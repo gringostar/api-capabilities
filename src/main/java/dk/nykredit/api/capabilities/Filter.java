@@ -12,10 +12,10 @@ import java.util.regex.Pattern;
  * This can be used for discovery of what projections service consumers would like to have and
  * help evolving the API to stay relevant and aligned with the consumers use of the service.
  * <p>
- * The syntax is: {@literal filter="<attribute>::+/-|<attribute>::+/-"}
+ * The syntax is: {@code filter="<attribute>::+/-|<attribute>::+/-"}
  * <ul>
- * <li>+ means include only</li>
- * <li>- means exclude only</li>
+ * <li>{@code +} means include only</li>
+ * <li>{@code -} means exclude only</li>
  * </ul>
  * <p>
  * Example:
@@ -30,8 +30,8 @@ import java.util.regex.Pattern;
  * which ideally returns a account object in the response with only balance and name attributes.
  * The service may however in the event that this is not supported, choose to return a complete object and not this sparse dynamic view.
  * <p>
- * The <code>filter</code> APi capability is handled by the Filter class and this is a simplistic way to get the
- * QueryParam mapped to a Map. The responsibility for having a Map is that every <code>attribute</code> used to specify
+ * The {@code filter} APi capability is handled by the Filter class and this is a simplistic way to get the
+ * QueryParam mapped to a Map. The responsibility for having a Map is that every {@code attribute} used to specify
  * sorting can only be present once as the same attribute with multiple representations and thus include or not does
  * not make sense, the Map allows only one key and having the attribute (stems from the json and thus the representation)
  * as key helps to enforce that.
@@ -77,8 +77,11 @@ public class Filter {
 
     /**
      * Delivers the set of attributes that can be part of a dynamic projection.
-     * The syntax supported is given by the regexp: 
-     * <code>"^([a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+|:: |::)?)(\\|[a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+|:: |::)?)*"</code>
+     * <p>
+     * The syntax supported is given by the regexp:
+     * <p>
+     * {@code "^([a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+|:: |::)?)(\\|[a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+|:: |::)?)*"}
+     *
      * @param filter a string containing the criteria for a dynamic projection either include or exclude as principle {@link Inclusion}
      * @return the resulting attributes and the inclusion or exclusion of these
      *

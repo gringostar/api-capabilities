@@ -8,15 +8,15 @@ import java.util.regex.Pattern;
  * Signals a sorting order by attributes.
  * <p>
  * Implementation of the sorting API capability which follows the
- * structure like {@literal sort="<attribute>::+/-|<attribute>::+/-|...}.
+ * structure like {@code sort="<attribute>::+/-|<attribute>::+/-|...}.
  * <p>
- * The default is {@literal sort="<attribute>|<attribute>|...} which means default is ascending,
- * so <code>sort="balance|lastUpdate"</code> would mean ascending in relation
+ * The default is {@code sort="<attribute>|<attribute>|...} which means default is ascending,
+ * so {@code sort="balance|lastUpdate"} would mean ascending in relation
  * to balance and if equal then according to lastUpdate.
  * <p>
- * The <code>sort</code> APi capability is handled by the Sort class and this is a simplistic way to get the
+ * The {@code sort} APi capability is handled by the Sort class and this is a simplistic way to get the
  * QueryParam mapped to a List with a unique representation of the attributes to sort by.
- * The responsibility for having a Map is that every <code>attribute</code> used to specify sorting can
+ * The responsibility for having a Map is that every {@code attribute} used to specify sorting can
  * only be present once as the same attribute with multiple representations and thus directions does
  * not make sense, the Map allows only one key and having the attribute (stems from the json and thus the representation)
  * as key helps to enforce that.
@@ -66,10 +66,10 @@ public class Sort {
      * the http:// ..../ some-resource?sort="value" that value may contain one or more attributes
      * which is part of the resource attributes for the endpoint that the request is targeting
      * <p>
-     * the format is  The syntax is: {@literal(sort="<attribute>+/-|<attribute>+/-|...")}
-     * and is equivalent to: {@literal(sort="<attribute>::+/-|<attribute>::+/-|...")}
+     * the format is  The syntax is: {@code sort="<attribute>+/-|<attribute>+/-|..."}
+     * and is equivalent to: {@code sort="<attribute>::+/-|<attribute>::+/-|..."}
      * <p>
-     * the regexp is: <code>"^([a-zA-Z]+[a-zA-Z_0-9]*(::-|::\\+|:: )?)(\\|[a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+)?)*"</code>
+     * the regexp is: {@code "^([a-zA-Z]+[a-zA-Z_0-9]*(::-|::\\+|:: )?)(\\|[a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+)?)*"}
      *
      * @param sorting the sort  Query Parameter
      * @return a map containing attribute and value pairs to control the sorting for the response

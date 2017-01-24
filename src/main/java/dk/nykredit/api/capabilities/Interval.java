@@ -15,7 +15,7 @@ import dk.nykredit.time.CurrentTime;
  * <p>
  * Temporal aspects are handled using the interval Query Parameter.
  * <p>
- * The syntax is: {@literal interval="<now/from/to/at/::+/-/#d/#/now>|<now/from/to/at/::+/-/#d/#>"}
+ * The syntax is: {@code interval="<now/from/to/at/::+/-/#d/#/now>|<now/from/to/at/::+/-/#d/#>"}
  * <p>
  * Example:
  * {@code https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?interval="from::-14d|to::now"}
@@ -66,13 +66,15 @@ public class Interval {
 
     /**
      * Creates an Interval having a start and an end.
-     *
+     * <p>
      * The interval is constructed from a syntax like:
      *
-     * {@literal(interval="<from/at/::+/-/#d/#/now/yesterday/tomorrow>|<to/::+/-/#d/#/now/yesterday/tomorrow>")}
-     * the regexp is:
-     * <code>"^(from::|at::)?(-|\\+)?(\\d+d?|now|yesterday|tomorrow)?(\\|)?(to::)?(-|\\+)?(\\d+d?|now|yesterday|tomorrow)?"</code>
+     * {@code interval="<from/at/::+/-/#d/#/now/yesterday/tomorrow>|<to/::+/-/#d/#/now/yesterday/tomorrow>"}
+     * <p>
+     * The regexp is:
      *
+     * {@code "^(from::|at::)?(-|\\+)?(\\d+d?|now|yesterday|tomorrow)?(\\|)?(to::)?(-|\\+)?(\\d+d?|now|yesterday|tomorrow)?"}
+     * <p>
      * @param interval containing a time or a starting and an ending point in time according to the regexp above
      * @return an Interval with a start and an end, is the values are nor valid a NILL instance is returned
      */
