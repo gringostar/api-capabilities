@@ -1,12 +1,11 @@
 package dk.nykredit.api.capabilities;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.StringTokenizer;
-
-import dk.nykredit.time.CurrentTime;
 
 /**
  * A time interval with a start and end time.
@@ -35,12 +34,14 @@ import dk.nykredit.time.CurrentTime;
  */
 public class Interval {
 
+    static Clock timeSource = Clock.systemUTC();
+
     private static final int DEFAULT_TIME_SPAN = 4;
     private final ZonedDateTime start;
     private final ZonedDateTime end;
 
     private Interval(ZonedDateTime start) {
-        this(start, CurrentTime.nowAsZonedDateTime());
+        this(start, ZonedDateTime.now(timeSource));
     }
 
     private Interval(ZonedDateTime start, ZonedDateTime end) {
@@ -108,7 +109,7 @@ public class Interval {
             return Optional.of(new Interval(zds, zde));
         } else {
             if (startPoint.contains("from::"))
-                return Optional.of(new Interval(zds, CurrentTime.nowAsZonedDateTime()));
+                return Optional.of(new Interval(zds, ZonedDateTime.now(timeSource)));
             if (startPoint.contains("at::"))
                 return Optional.of(new Interval(zds, zds.plusHours(DEFAULT_TIME_SPAN)));
         }
@@ -131,7 +132,7 @@ public class Interval {
         if (time.matches("^\\d+d")) {
             int len = time.length() - 1;
             long offset = Integer.parseInt(time.substring(0, len));
-            zd = relative ? zd.withZoneSameInstant(ZoneId.of("UTC")).plusDays(offset) : CurrentTime.nowAsZonedDateTime().plusDays(offset);
+            zd = relative ? zd.withZoneSameInstant(ZoneId.of("UTC")).plusDays(offset) : ZonedDateTime.now(timeSource).plusDays(offset);
         }
         return zd;
     }
@@ -140,7 +141,7 @@ public class Interval {
         if (time.matches("^[-|\\+]+\\d+d")) {
             int len = time.length() - 1;
             long offset = Integer.parseInt(time.substring(1, len));
-            ZonedDateTime utc = relative ? zd.withZoneSameInstant(ZoneId.of("UTC")) : CurrentTime.nowAsZonedDateTime();
+            ZonedDateTime utc = relative ? zd.withZoneSameInstant(ZoneId.of("UTC")) : ZonedDateTime.now(timeSource);
             if ((time.charAt(0) == '-') && (time.charAt(len) == 'd')) {
                 zd = utc.minusDays(offset);
             } else {
@@ -163,13 +164,13 @@ public class Interval {
     private static ZonedDateTime ifTextual(ZonedDateTime zd, String time) {
         if (time.matches("now|tomorrow|yesterday")) {
             if (time.contains("now")) {
-                zd = CurrentTime.nowAsZonedDateTime();
+                zd = ZonedDateTime.now(timeSource);
             }
             if (time.contains("tomorrow")) {
-                zd = CurrentTime.nowAsZonedDateTime().plusDays(1);
+                zd = ZonedDateTime.now(timeSource).plusDays(1);
             }
             if (time.contains("yesterday")) {
-                zd = CurrentTime.nowAsZonedDateTime().minusDays(1);
+                zd = ZonedDateTime.now(timeSource).minusDays(1);
             }
         }
         return zd;
