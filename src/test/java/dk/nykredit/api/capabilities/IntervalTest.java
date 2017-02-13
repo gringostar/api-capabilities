@@ -1,13 +1,10 @@
 package dk.nykredit.api.capabilities;
 
 
-import dk.nykredit.time.CurrentTime;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.Optional;
 
 
@@ -16,6 +13,10 @@ import static org.junit.Assert.assertTrue;
 
 public class IntervalTest {
 
+    @Before
+    public void resetTime() {
+        Interval.timeSource = Clock.systemUTC();
+    }
 
     @Test
     public void testNoInterval() {
@@ -45,15 +46,15 @@ public class IntervalTest {
 
     @Test
     public void testInterval() {
-        VirtualCurrentTime.adjustTime(Instant.ofEpochMilli(1481987229L), true);
+        Interval.timeSource = Clock.fixed(Instant.ofEpochMilli(1481987229L), ZoneOffset.UTC);
 
         Optional<Interval> interval = Interval.getInterval("from::-14d|to::now");
-        ZonedDateTime zd = CurrentTime.nowAsZonedDateTime().minusDays(14);
+        ZonedDateTime zd = ZonedDateTime.now(Interval.timeSource).minusDays(14);
         assertEquals(zd.getYear(), interval.get().getStart().getYear());
         assertEquals(zd.getMonth(), interval.get().getStart().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getStart().getDayOfMonth());
 
-        zd = CurrentTime.nowAsZonedDateTime();
+        zd = ZonedDateTime.now(Interval.timeSource);
         assertEquals(zd.getYear(), interval.get().getEnd().getYear());
         assertEquals(zd.getMonth(), interval.get().getEnd().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getEnd().getDayOfMonth());
@@ -67,7 +68,7 @@ public class IntervalTest {
         assertEquals(zd.getMonth(), interval.get().getStart().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getStart().getDayOfMonth());
 
-        zd = CurrentTime.nowAsZonedDateTime();
+        zd = ZonedDateTime.now(Interval.timeSource);
         assertEquals(zd.getYear(), interval.get().getEnd().getYear());
         assertEquals(zd.getMonth(), interval.get().getEnd().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getEnd().getDayOfMonth()); //may be troublesome when run over midnight
@@ -79,7 +80,7 @@ public class IntervalTest {
         assertEquals(zd.getMonth(), interval.get().getStart().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getStart().getDayOfMonth()); //may be troublesome when run over midnight
 
-        zd = CurrentTime.nowAsZonedDateTime().plusDays(10);
+        zd = ZonedDateTime.now(Interval.timeSource).plusDays(10);
         assertEquals(zd.getYear(), interval.get().getEnd().getYear());
         assertEquals(zd.getMonth(), interval.get().getEnd().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getEnd().getDayOfMonth()); //may be troublesome when run over midnight
@@ -97,34 +98,34 @@ public class IntervalTest {
         assertEquals(zd.getDayOfMonth(), interval.get().getEnd().getDayOfMonth()); //may be troublesome when run over midnight
 
         interval = Interval.getInterval("from::yesterday|to::tomorrow");
-        zd = CurrentTime.nowAsZonedDateTime().minusDays(1);
+        zd = ZonedDateTime.now(Interval.timeSource).minusDays(1);
         assertEquals(zd.getYear(), interval.get().getStart().getYear());
         assertEquals(zd.getMonth(), interval.get().getStart().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getStart().getDayOfMonth()); //may be troublesome when run over midnight
 
-        zd = CurrentTime.nowAsZonedDateTime().plusDays(1);
+        zd = ZonedDateTime.now(Interval.timeSource).plusDays(1);
         assertEquals(zd.getYear(), interval.get().getEnd().getYear());
         assertEquals(zd.getMonth(), interval.get().getEnd().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getEnd().getDayOfMonth()); //may be troublesome when run over midnight
 
         interval = Interval.getInterval("from::yesterday|to::now");
-        zd = CurrentTime.nowAsZonedDateTime().minusDays(1);
+        zd = ZonedDateTime.now(Interval.timeSource).minusDays(1);
         assertEquals(zd.getYear(), interval.get().getStart().getYear());
         assertEquals(zd.getMonth(), interval.get().getStart().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getStart().getDayOfMonth()); //may be troublesome when run over midnight
 
-        zd = CurrentTime.nowAsZonedDateTime();
+        zd = ZonedDateTime.now(Interval.timeSource);
         assertEquals(zd.getYear(), interval.get().getEnd().getYear());
         assertEquals(zd.getMonth(), interval.get().getEnd().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getEnd().getDayOfMonth()); //may be troublesome when run over midnight
 
         interval = Interval.getInterval("from::-12d|to::+2d");
-        zd = CurrentTime.nowAsZonedDateTime().minusDays(12);
+        zd = ZonedDateTime.now(Interval.timeSource).minusDays(12);
         assertEquals(zd.getYear(), interval.get().getStart().getYear());
         assertEquals(zd.getMonth(), interval.get().getStart().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getStart().getDayOfMonth()); //may be troublesome when run over midnight
 
-        zd = CurrentTime.nowAsZonedDateTime().plusDays(2);
+        zd = ZonedDateTime.now(Interval.timeSource).plusDays(2);
         assertEquals(zd.getYear(), interval.get().getEnd().getYear());
         assertEquals(zd.getMonth(), interval.get().getEnd().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getEnd().getDayOfMonth()); //may be troublesome when run over midnight
@@ -137,7 +138,7 @@ public class IntervalTest {
         assertEquals(zd.getMonth(), interval.get().getStart().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getStart().getDayOfMonth()); //may be troublesome when run over midnight
 
-        zd = CurrentTime.nowAsZonedDateTime();
+        zd = ZonedDateTime.now(Interval.timeSource);
         assertEquals(zd.getYear(), interval.get().getEnd().getYear());
         assertEquals(zd.getMonth(), interval.get().getEnd().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getEnd().getDayOfMonth()); //may be troublesome when run over midnight
@@ -149,7 +150,7 @@ public class IntervalTest {
         assertEquals(zd.getMonth(), interval.get().getStart().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getStart().getDayOfMonth()); //may be troublesome when run over midnight
 
-        zd = CurrentTime.nowAsZonedDateTime();
+        zd = ZonedDateTime.now(Interval.timeSource);
         assertEquals(zd.getYear(), interval.get().getEnd().getYear());
         assertEquals(zd.getMonth(), interval.get().getEnd().getMonth());
         assertEquals(zd.getDayOfMonth(), interval.get().getEnd().getDayOfMonth()); //may be troublesome when run over midnight
@@ -170,19 +171,20 @@ public class IntervalTest {
 
     @Test
     public void testTheVirtualTimeCrossYear(){
-        VirtualCurrentTime.adjustTime(CurrentTime.now(),true);
-        ZonedDateTime zdnow = CurrentTime.nowAsZonedDateTime();
+        Interval.timeSource = Clock.fixed(Instant.now(), ZoneOffset.UTC);
+
+        ZonedDateTime zdnow = ZonedDateTime.now(Interval.timeSource);
         Optional<Interval> interval = Interval.getInterval("from::-14d|to::now");
         assertEquals(zdnow.getYear(), interval.get().getEnd().getYear());
         assertEquals(zdnow.getMonth(), interval.get().getEnd().getMonth());
         assertEquals(zdnow.getDayOfMonth(), interval.get().getEnd().getDayOfMonth()); //may be troublesome when run over midnight
 
-        assertTrue(zdnow.isEqual(interval.get().getEnd()));
+        assertEquals(zdnow, interval.get().getEnd());
         assertTrue(zdnow.minusDays(14).isEqual(interval.get().getStart()));
 
         LocalDateTime ldt = LocalDateTime.of(2016, 1, 6, 8, 5, 10, 0);
         ZonedDateTime zdt = ldt.atZone(ZoneId.of("UTC"));
-        VirtualCurrentTime.adjustTime(zdt.toInstant(), true);
+        Interval.timeSource = Clock.fixed(zdt.toInstant(), ZoneOffset.UTC);
         interval = Interval.getInterval("from::-14d|to::now");
 
         assertTrue(zdt.isEqual(interval.get().getEnd()));
@@ -193,9 +195,9 @@ public class IntervalTest {
         assertEquals(1, interval.get().getEnd().getMonthValue());
         assertEquals(23, interval.get().getStart().getDayOfMonth());
         assertEquals(6, interval.get().getEnd().getDayOfMonth());
-        VirtualCurrentTime.stop();
+        Interval.timeSource = Clock.systemUTC();
 
-        zdnow = CurrentTime.nowAsZonedDateTime();
+        zdnow = ZonedDateTime.now(Interval.timeSource);
         interval = Interval.getInterval("from::-14d|to::now");
         assertEquals(zdnow.getYear(), interval.get().getEnd().getYear());
         assertEquals(zdnow.getMonth(), interval.get().getEnd().getMonth());
@@ -203,17 +205,4 @@ public class IntervalTest {
         assertTrue(zdnow.toEpochSecond() - interval.get().getEnd().toEpochSecond() < 1000);
         assertTrue(zdnow.minusDays(14).toEpochSecond() - interval.get().getStart().toEpochSecond() < 1000);
     }
-
-}
-
-class VirtualCurrentTime extends CurrentTime {
-
-    static void adjustTime(Instant instant, boolean stopTime){
-        CurrentTime.setTime(instant, stopTime);
-    }
-
-    static void stop() {
-        CurrentTime.reset();
-    }
-
 }
