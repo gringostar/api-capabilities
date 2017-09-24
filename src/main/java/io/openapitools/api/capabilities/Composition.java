@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
  * <p>
  * This coupling should of course not be synchronous.
  */
-public class Composition {
+public final class Composition {
 
     private static final Pattern REGEX = Pattern.compile("^(([a-zA-Z_0-9]+)?::([a-zA-Z_0-9]+))?((\\|[a-zA-Z_0-9]+)?::([a-zA-Z_0-9]+))*");
     private static final CapabilityParser<Composition> PARSER = new CapabilityParser<>(REGEX, Composition::parseToken);

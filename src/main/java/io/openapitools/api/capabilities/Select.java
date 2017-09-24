@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * thus it works as a way to select certain objects, in this case based on the semantic
  * key for an account.
  */
-public class Select {
+public final class Select {
     private static final Pattern REGEX =
         Pattern.compile("^(([a-z][a-zA-Z_0-9]*)::([a-zA-Z_0-9]+)(-|\\+)?)?((\\|[a-z][a-zA-Z_0-9]*)?::([a-zA-Z_0-9]+)(-|\\+)?)*");
     private static final CapabilityParser<Select> PARSER = new CapabilityParser<>(REGEX, Select::parseToken);

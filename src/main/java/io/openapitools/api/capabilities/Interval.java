@@ -32,7 +32,7 @@ import java.util.StringTokenizer;
  * <p>
  * This supports the use of CurrentTime and its virtual time set.
  */
-public class Interval {
+public final class Interval {
 
     static Clock timeSource = Clock.systemUTC();
 
@@ -142,7 +142,7 @@ public class Interval {
             int len = time.length() - 1;
             long offset = Integer.parseInt(time.substring(1, len));
             ZonedDateTime utc = relative ? zd.withZoneSameInstant(ZoneId.of("UTC")) : ZonedDateTime.now(timeSource);
-            if ((time.charAt(0) == '-') && (time.charAt(len) == 'd')) {
+            if (time.charAt(0) == '-' && time.charAt(len) == 'd') {
                 zd = utc.minusDays(offset);
             } else {
                 zd = utc.plusDays(offset);
@@ -196,7 +196,7 @@ public class Interval {
     }
 
     private static boolean invalidIntervalInput(int pit) {
-        return (pit < 1) || (pit > 2);
+        return pit < 1 || pit > 2;
     }
 
 }

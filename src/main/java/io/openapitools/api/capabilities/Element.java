@@ -17,7 +17,7 @@ import java.util.Optional;
  * <p>
  * A maximum element size is defined here {@link #MAX_ELEMENTS}.
  */
-public class Element {
+public final class Element {
 
     /** Maximum number of elements to return - currently 500 */
     public static final int MAX_ELEMENTS = 500;
@@ -63,7 +63,7 @@ public class Element {
             try {
                 int s = Integer.parseInt(result.substring(0, pipe));
                 int e = Integer.parseInt(result.substring(pipe + 1));
-                if ((e > s) && (s > 0) && (e - s < MAX_ELEMENTS)) {
+                if (e > s && s > 0 && e - s < MAX_ELEMENTS) {
                     return Optional.of(new Element(s, e));
                 }
             } catch (NumberFormatException e) {

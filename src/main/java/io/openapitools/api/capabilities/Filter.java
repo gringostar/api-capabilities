@@ -48,7 +48,7 @@ import java.util.regex.Pattern;
  * which is not desirable and thus the choice was to let the Filter class take that responsibility and thus extensions can handle
  * necessary translations or mappings between the exposure and representations from and to the model.
  */
-public class Filter {
+public final class Filter {
     private static final Pattern REGEX =
         Pattern.compile("^([a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+|:: |::)?)(\\|[a-zA-Z_0-9]+[a-zA-Z_0-9]*(::-|::\\+|:: |::)?)*");
     private static final CapabilityParser<Filter> PARSER = new CapabilityParser<>(REGEX, Filter::parseToken, Filter::duplicate);

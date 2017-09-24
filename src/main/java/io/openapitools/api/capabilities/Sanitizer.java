@@ -3,7 +3,7 @@ package io.openapitools.api.capabilities;
 /**
  * API input sanitizer in a rudimental version.
  */
-public class Sanitizer {
+public final class Sanitizer {
     private static final String[] SUSPICIOUS_CONTENT = {"\'", "\"", "\\", "%", "\\%", "\\_", "\0", "\b", "\n", "\t", "\r", "\\Z", "?", "#"};
 
     private Sanitizer() {
@@ -20,10 +20,10 @@ public class Sanitizer {
      * @return a sanitized string or an empty string if the sanitation failed for some reason.
      */
     public static String sanitize(String input, boolean allowSpaces, boolean allowNumbers) {
-        String result = input;
         if (null == input) {
             return "";
         }
+        String result = input;
         if (!allowSpaces) {
             result = result.replaceAll(" ", "");
         }
