@@ -2,6 +2,10 @@
 
 In every API of a certain size a number of capabilities are used to provide a particular set of functionality.
 
+[![Build status](https://travis-ci.org/openapi-tools/api-capabilities.svg?branch=master)](https://travis-ci.org/openapi-tools/api-capabilities)
+[![Coverage Status](https://codecov.io/gh/openapi-tools/api-capabilities/coverage.svg?branch=master)](https://codecov.io/gh/openapi-tools/api-capabilities)
+
+
 This example contains the following capabilities:
 
 - Selection: `select`
