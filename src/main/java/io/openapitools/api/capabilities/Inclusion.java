@@ -1,4 +1,4 @@
-package dk.nykredit.api.capabilities;
+package io.openapitools.api.capabilities;
 
 /**
  * Signals inclusion or exclusion of a given criterion used in conjunction with Composition.

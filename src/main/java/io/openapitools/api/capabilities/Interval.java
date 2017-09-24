@@ -1,4 +1,4 @@
-package dk.nykredit.api.capabilities;
+package io.openapitools.api.capabilities;
 
 import java.time.Clock;
 import java.time.Instant;

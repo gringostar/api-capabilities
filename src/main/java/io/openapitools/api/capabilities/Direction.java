@@ -1,4 +1,4 @@
-package dk.nykredit.api.capabilities;
+package io.openapitools.api.capabilities;
 
 /**
  * Sorting direction for a given attribute used in conjunction with Sort.

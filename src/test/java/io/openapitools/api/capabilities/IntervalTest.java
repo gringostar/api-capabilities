@@ -1,15 +1,13 @@
-package dk.nykredit.api.capabilities;
-
-
-import org.junit.Before;
-import org.junit.Test;
+package io.openapitools.api.capabilities;
 
 import java.time.*;
 import java.util.Optional;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
 
 public class IntervalTest {
 

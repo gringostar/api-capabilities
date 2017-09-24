@@ -1,4 +1,4 @@
-package dk.nykredit.api.capabilities;
+package io.openapitools.api.capabilities;
 
 /**
  * API input sanitizer in a rudimental version.

@@ -1,11 +1,11 @@
-package dk.nykredit.api.capabilities;
+package io.openapitools.api.capabilities;
 
-import org.junit.Test;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
+import org.junit.Test;
 
 public class SortTest {
 

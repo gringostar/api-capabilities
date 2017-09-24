@@ -1,10 +1,10 @@
-package dk.nykredit.api.capabilities;
-
-import org.junit.Test;
+package io.openapitools.api.capabilities;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 public class SelectTest {
 
