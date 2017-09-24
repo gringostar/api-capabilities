@@ -51,11 +51,10 @@
         <checkstyle.version>7.8.2</checkstyle.version>
         <findbugs.version>3.0.4</findbugs.version>
         <jacoco.version>0.7.9</jacoco.version>
+        <junit.version>4.12</junit.version>
         <pmd.plugin.version>3.8</pmd.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        
-        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
