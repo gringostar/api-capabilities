@@ -13,9 +13,9 @@ import java.util.regex.Pattern;
  * <p>
  * Example:
  * <p>
- * {@code https://banking.services.sample-bank.dk/accounts?select="no::123456789+|no::234567890"}
+ * {@code https://banking.services.sample-bank.dk/accounts?select="no::123456789|no::234567890"}
  * <p>
- * So the {@code select="no::123456789+|no::234567890" }
+ * So the {@code select="no::123456789|no::234567890" }
  * will return the two accounts having account numbers "123456789" and "234567890" and
  * thus it works as a way to select certain objects, in this case based on the semantic
  * key for an account.
