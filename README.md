@@ -70,9 +70,7 @@ Sorting is done using a `sort` Query Parameter. Sort order can be either ascendi
 
 The syntax is:
 
-    sort="<attribute>+/-|<attribute>+/-|..."
-
-and is equivalent to: `sort="<attribute>::+/-|<attribute>::+/-|..."`.
+    sort="<attribute>::+/-|<attribute>::+/-|..."
 
 #### Simple Example
 
@@ -82,7 +80,7 @@ sorts accounts by ascending balance.
 
 #### Sorting on two properties
 
-    https://banking.services.sample-bank.dk/accounts?select=balance|lastUpdate-
+    https://banking.services.sample-bank.dk/accounts?select=balance|lastUpdate::-
 
 sorts accounts by ascending balance and descending lastUpdate.
 
