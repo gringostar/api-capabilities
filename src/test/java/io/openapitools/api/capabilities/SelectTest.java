@@ -1,28 +1,28 @@
 package io.openapitools.api.capabilities;
 
+import org.junit.Test;
+
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
 
 public class SelectTest {
 
 
     @Test
-    public void testNoSelection(){
+    public void testNoSelection() {
         List<Select> selections = Select.getSelections(null);
         assertEquals(0, selections.size());
     }
 
     @Test
-    public void testEmptySelection(){
+    public void testEmptySelection() {
         List<Select> selections = Select.getSelections("");
         assertEquals(0, selections.size());
     }
 
     @Test
-    public void testWrongSelection(){
+    public void testWrongSelection() {
         List<Select> selections = Select.getSelections("::");
         assertEquals(0, selections.size());
         selections = Select.getSelections("|");
@@ -30,7 +30,7 @@ public class SelectTest {
     }
 
     @Test
-    public void testIllegalSelection(){
+    public void testIllegalSelection() {
         List<Select> selections = Select.getSelections("?::4");
         assertEquals(0, selections.size());
         selections = Select.getSelections("3::4");
@@ -44,33 +44,40 @@ public class SelectTest {
     }
 
     @Test
-    public void testSimpleSelection(){
+    public void testSimpleSelection() {
         List<Select> selections = Select.getSelections("u::4");
         assertEquals(1, selections.size());
         selections = Select.getSelections("attribute::value");
         assertEquals(1, selections.size());
         selections = Select.getSelections("a::value");
         assertEquals(1, selections.size());
+        selections = Select.getSelections("attribute:: value");
+        assertEquals(1, selections.size());
+        selections = Select.getSelections("attribute:: value ");
+        assertEquals(1, selections.size());
+        selections = Select.getSelections("attribute::value ");
+        assertEquals(1, selections.size());
     }
 
     @Test
-    public void testSelectionWithWhiteSpaceAttribute(){
+    public void testAdditionalSpecific() {
+        assertEquals(" S p a c e s ", Select.getSelections("attribute:: S p a c e s ").get(0).getValue());
+        assertEquals("(parenthesis)", Select.getSelections("attribute::(parenthesis)").get(0).getValue());
+        assertEquals("forward/slash", Select.getSelections("attribute::forward/slash").get(0).getValue());
+    }
+
+    @Test
+    public void testSelectionWithWhiteSpaceAttribute() {
         List<Select> selections = Select.getSelections("attribute ::value");
         assertEquals(0, selections.size());
         selections = Select.getSelections("attribute ::value");
         assertEquals(0, selections.size());
         selections = Select.getSelections(" attribute::value");
         assertEquals(0, selections.size());
-        selections = Select.getSelections("attribute:: value");
-        assertEquals(0, selections.size());
-        selections = Select.getSelections("attribute:: value ");
-        assertEquals(0, selections.size());
-        selections = Select.getSelections("attribute::value ");
-        assertEquals(0, selections.size());
     }
 
     @Test
-    public void testSelectionWithSuspiciousCharacters(){
+    public void testSelectionWithSuspiciousCharacters() {
         List<Select> selections = Select.getSelections("attribute or '1' = '1::value");
         assertEquals(0, selections.size());
         selections = Select.getSelections("attribute or '1' = '1::value");
@@ -90,7 +97,7 @@ public class SelectTest {
     }
 
     @Test
-    public void testSelectionCriteria(){
+    public void testSelectionCriteria() {
         List<Select> selections = Select.getSelections("attribute::value|otherAttribute::otherValue");
         assertEquals(2, selections.size());
         boolean attributeValueObserved = false;
@@ -112,7 +119,7 @@ public class SelectTest {
     }
 
     @Test
-    public void testSelectionHavingMultipleCriteria(){
+    public void testSelectionHavingMultipleCriteria() {
         List<Select> selections = Select.getSelections("attribute::value|otherAttribute::otherValue");
         assertEquals(2, selections.size());
         boolean attributeValueObserved = false;
@@ -157,7 +164,7 @@ public class SelectTest {
     }
 
     @Test
-    public void testIllegalSelections(){
+    public void testIllegalSelections() {
         List<Select> selections = Select.getSelections("?::4|a::b");
         assertEquals(0, selections.size());
         selections = Select.getSelections("?::4|a::b");
@@ -167,5 +174,4 @@ public class SelectTest {
         selections = Select.getSelections("v::g|f::j|u::iio|3::4");
         assertEquals(0, selections.size());
     }
-
 }

@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * <p>
  * Indicated by using an API Query Parameter called {@code select}.
  * <p>
- * The syntax is: {@code select="<attribute>::<value>|<atribute>::<value>|..."}
+ * The syntax is: {@code select="<attribute>::<value>|<attribute>::<value>|..."}
  * <p>
  * Example:
  * <p>
@@ -21,24 +21,17 @@ import java.util.regex.Pattern;
  * key for an account.
  */
 public final class Select {
-    private static final Pattern REGEX =
-        Pattern.compile("^(([a-z][a-zA-Z_0-9]*)::([a-zA-Z_0-9]+)(-|\\+)?)?((\\|[a-z][a-zA-Z_0-9]*)?::([a-zA-Z_0-9]+)(-|\\+)?)*");
+    private static final String PAIR = "([a-z][a-zA-Z_0-9]*)::([^|" + Sanitizer.regexQuotedSuspiciousContent() + "]+)";
+    private static final Pattern REGEX = Pattern.compile("^" + PAIR + "(\\|" + PAIR + ")*");
+
     private static final CapabilityParser<Select> PARSER = new CapabilityParser<>(REGEX, Select::parseToken);
 
-    private String attribute = "";
-    private String value = "";
+    private String attribute;
+    private String value;
 
     private Select(String attribute, String value) {
         this.attribute = attribute;
         this.value = value;
-    }
-
-    public String getAttribute() {
-        return attribute;
-    }
-
-    public String getValue() {
-        return value;
     }
 
     /**
@@ -50,8 +43,6 @@ public final class Select {
      * {@code "attribute::value|anotherAttribute::thatValue|yetAnotherAttribute::thisValue"}
      * and so on, it may also take the form {@code "attribute::value|attribute::thatValue|attribute::thisValue"}
      * <p>
-     * The regexp is:
-     * {@code ^(([a-z][a-zA-Z_0-9]*)::([a-zA-Z_0-9]+)(-|\\+)?)?((\\|[a-z][a-zA-Z_0-9]*)?::([a-zA-Z_0-9]+)(-|\\+)?)*}
      *
      * @param select the select Query Parameter
      * @return a set of attribute(s) and value(s) used for selecting candidates for the response
@@ -62,13 +53,20 @@ public final class Select {
 
     private static Optional<Select> parseToken(String token) {
         String attribute = token.substring(0, token.indexOf(':'));
-        return Optional.of(new Select(attribute, getValuefrom(token)));        
+        return Optional.of(new Select(attribute, getValueFrom(token)));
     }
 
-    private static String getValuefrom(String selection) {
+    private static String getValueFrom(String selection) {
         int startsAt = selection.indexOf("::") + "::".length();
         int endsAt = !selection.contains("|") ? selection.length() : selection.indexOf('|');
         return selection.substring(startsAt, endsAt);
     }
 
+    public String getAttribute() {
+        return attribute;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }
