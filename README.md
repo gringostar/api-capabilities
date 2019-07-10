@@ -64,6 +64,12 @@ selects accounts having a balance between 100 and 1000 (both inclusive).
 
 selects the two accounts having account numbers "123456789" and "234567890".
 
+#### Selecting with wildcards
+
+    https://banking.services.sample-bank.dk/accounts?select="name::savings*|name::*loan*"
+
+selects accounts having a name starting with "savings" or containing "loan"
+
 ### Sorting API Capability
 
 Sorting is done using a `sort` Query Parameter. Sort order can be either ascending (default) or descending.
