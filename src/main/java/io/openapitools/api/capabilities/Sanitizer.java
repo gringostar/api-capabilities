@@ -1,5 +1,7 @@
 package io.openapitools.api.capabilities;
 
+import java.util.regex.Pattern;
+
 /**
  * API input sanitizer in a rudimental version.
  */
@@ -11,11 +13,20 @@ public final class Sanitizer {
     }
 
     /**
+     * Joined and escaped string of suspicious content.
+     *
+     * @return String.
+     */
+    static String regexQuotedSuspiciousContent() {
+        return Pattern.quote(String.join("", SUSPICIOUS_CONTENT));
+    }
+
+    /**
      * A simple sanitizer that needs to be extended and elaborated to cope with injections and
      * other things that pose as threats to the services and the data they contain and maintain.
      *
-     * @param input an input string received from a non-trustworthy source (in reality every source)
-     * @param allowSpaces should the string be stripped for spaces or allow these to stay
+     * @param input        an input string received from a non-trustworthy source (in reality every source)
+     * @param allowSpaces  should the string be stripped for spaces or allow these to stay
      * @param allowNumbers can the input contain numbers or not
      * @return a sanitized string or an empty string if the sanitation failed for some reason.
      */
@@ -40,7 +51,8 @@ public final class Sanitizer {
 
     /**
      * A default version of the santizer used from the local capabilities and thus
-     * @param input an input string received from a non-trustworthy source (in reality every source)
+     *
+     * @param input       an input string received from a non-trustworthy source (in reality every source)
      * @param allowSpaces should the string be stripped for spaces or allow these to stay
      * @return a sanitized string or an empty string if the sanitation failed for some reason
      */
