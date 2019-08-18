@@ -5,7 +5,7 @@
     
     <name>API Capabilities Module</name>
     <groupId>io.openapitools.api</groupId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
     <artifactId>capabilities</artifactId>
     <packaging>jar</packaging>
 
