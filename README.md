@@ -132,6 +132,11 @@ The maximum element count is 500.
 
 returns elements 10 to 30.
 
+    https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?elements="10|10"
+    https://banking.services.sample-bank.dk/accounts/1234-56789/transactions?elements="10"
+    
+both returns element 10.
+
 ### Filtering API Capability
 
 The Query parameters `filter` is used for requesting a dynamic projection. The service is not obliged to be able to support this, but may return
