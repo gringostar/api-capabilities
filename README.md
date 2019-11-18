@@ -86,7 +86,7 @@ sorts accounts by ascending balance.
 
 #### Sorting on two properties
 
-    https://banking.services.sample-bank.dk/accounts?select=balance|lastUpdate::-
+    https://banking.services.sample-bank.dk/accounts?sort=balance|lastUpdate::-
 
 sorts accounts by ascending balance and descending lastUpdate.
 
